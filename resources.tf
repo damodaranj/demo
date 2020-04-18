@@ -14,8 +14,8 @@ resource "aws_elastic_beanstalk_application" "default" {
 }
 
 resource "aws_elastic_beanstalk_application_version" "default" {
-  name        = "devops-node-materials-label"
-  application = "devops-node-materials"
+  name        = "devops-node-materials1-label"
+  application = "devops-node-materials1"
   description = "application version created by terraform"
   bucket      = "${aws_s3_bucket.default.id}"
   key         = "${aws_s3_bucket_object.default.id}"
