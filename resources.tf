@@ -9,7 +9,7 @@ resource "aws_s3_bucket_object" "default" {
 }
 
 resource "aws_elastic_beanstalk_application" "default" {
-  name        = "devops-node-materials"
+  name        = "devops-node-materials1"
   description = "devops-node description"
 }
 
