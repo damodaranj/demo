@@ -25,6 +25,11 @@ resource "aws_elastic_beanstalk_environment" "tfenvtest" {
   application         = "${aws_elastic_beanstalk_application.default.name}"
   solution_stack_name = "64bit Amazon Linux 2 v3.0.0 running Docker"
   #solution_stack_name = "64bit Amazon Linux 2018.03 v4.13.0 running Node.js"
+setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name = "IamInstanceProfile"
+    value = "aws-elasticbeanstalk-ec2-role"
+  }
 }
 
 output "ElasticBeansTalk" {
