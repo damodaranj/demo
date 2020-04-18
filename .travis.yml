@@ -1,0 +1,33 @@
+sudo: required
+services:
+- docker
+env:
+  global:
+#  - docker_registry_name: jjino
+
+before_install:
+  - curl -O https://releases.hashicorp.com/terraform/0.12.18/terraform_0.12.18_linux_amd64.zip
+  - sudo unzip terraform_0.12.18_linux_amd64.zip -d /usr/local/bin/
+  - rm terraform_0.12.18_linux_amd64.zip
+  - sudo chmod +x /usr/local/bin/terraform
+  - echo "$docker_password" | docker login -u "$docker_username" --password-stdin
+  - docker build -t "$docker_username"/devops .
+script:
+  - terraform --version
+  - docker push "$docker_username"/devops:latest
+  - terraform init
+  - terraform apply -auto-approve
+  - sleep 20
+#  - terraform destroy -auto-approve 
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-1
+  app:  devops-node-materials
+  env:  devops-node-materials-env
+  bucket_name: devops-node-bucket-made # elasticbeanstalk-us-east-1-012350340112
+  bucket_path: docker
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key:
+    secure: $AWS_SECRET_ACCESS_KEY
