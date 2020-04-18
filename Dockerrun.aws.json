@@ -1,7 +1,7 @@
 {
     "AWSEBDockerrunVersion": "1",
     "Image": {
-      "Name": "jjino/devops:latest",
+      "Name": "saidamo/devops:latest",
       "Update": "true"
     },
     "Ports": [
